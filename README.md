@@ -1,33 +1,24 @@
-# Insecticide Resistance Modelling (IR Mapper Dataset)
+# Insecticide Resistance Modelling
 
 ## Overview
-This project analyzes global insecticide resistance trends in *Anopheles* mosquitoes using publicly available WHO/CDC bioassay data from IR Mapper.  
-It demonstrates expertise in epidemiological data science, spatial analysis, and mixed-effects modelling.
-
----
+This project analyzes global insecticide resistance trends in *Anopheles* mosquitoes using publicly available WHO bioassay data. It demonstrates expertise in epidemiological data science, spatial analysis, and mixed-effects modelling.
 
 ## Objectives
-- Model temporal trends in insecticide resistance  
-- Compare insecticide classes and countries  
-- Visualize global and country-specific trends  
-- Generate GIS maps for public health insights  
-
----
+- Model temporal trends in insecticide resistance
+- Compare insecticide classes and countries
+- Visualize global and country-specific trends
+- Generate GIS maps for public health insights
 
 ## Dataset
-- Source: IR Mapper (WHO & CDC bioassay dataset)  
-- Records: 7,562 covering multiple African countries (2010–2020)  
-- Variables include: species, percent mortality, insecticide tested, coordinates, year, assay type  
+- **Source:** [Dryad Dataset](https://datadryad.org/dataset/doi:10.5061/dryad.dn4676s) | [IR Mapper](https://irmapper.com/anopheles)
+- **Original file:** `1_standard-WHO-susc-test_complex-subgroup.csv`
+- **Cleaned dataset:** `Anopheles_resistance_clean_data.csv`
+- **Records:** 7,562 (2010–2017, multiple African countries)
+- **Variables include:** [Specify main columns, e.g., Country, Year, Insecticide, Mortality, Resistance_Status]
 
----
-
-## Tools & Skills Demonstrated
-- **R** (tidyverse, glmmTMB, sf, ggplot2)  
-- Mixed-effects modeling of bioassay data  
-- Spatial data analysis and mapping  
-- Data cleaning, visualization, and reproducible workflow  
-- GitHub for version control and portfolio management  
-
----
+## Tools & Skills
+- **Languages/Tools:** R (tidyverse, glmmTMB, sf, ggplot2)
+- **Techniques:** Mixed-effects modeling, spatial data analysis, GIS mapping
+- **Other skills:** Data cleaning, visualization, reproducible workflow, GitHub portfolio management
 
 ## Repository Structure
