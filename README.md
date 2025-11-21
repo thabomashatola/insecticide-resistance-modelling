@@ -1,2 +1,3 @@
-# insecticide-resistance-modelling
-Global Anopheles insecticide resistance analysis using IR Mapper data | GLMM, GIS, and epidemiological data science
+git add README.md
+git commit -m "Update README with project description"
+git push origin main
