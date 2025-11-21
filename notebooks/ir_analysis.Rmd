@@ -1,0 +1,75 @@
+---
+title: "Global Insecticide Resistance Analysis (IR Mapper)"
+author: "Thabo Mashatola"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(janitor)
+library(glmmTMB)
+library(here)
+
+# File paths
+data_file <- here("data", "ir_mapper_cleaned.csv")
+plots_dir <- here("outputs", "plots")
+tables_dir <- here("outputs", "tables")
+
+dir.create(plots_dir, showWarnings = FALSE, recursive = TRUE)
+dir.create(tables_dir, showWarnings = FALSE, recursive = TRUE)
+```
+
+## Load data
+```{r}
+raw <- read_csv(data_file)
+
+raw <- raw %>%
+clean_names() %>%
+mutate(
+percent_mortality = as.numeric(percent_mortality),
+latitude = as.numeric(latitude),
+longitude = as.numeric(longitude),
+site_id = paste0(country, "*", latitude, "*", longitude)
+) %>%
+drop_na(percent_mortality, year, insecticide_tested) %>%
+filter(percent_mortality >= 0 & percent_mortality <= 100)
+
+glimpse(raw)
+```
+
+## Global Trend Plot
+```{r}
+p1 <- ggplot(raw, aes(year, percent_mortality, color = insecticide_class)) +
+geom_point(alpha = 0.4) +
+geom_smooth(method = "loess") +
+theme_minimal() +
+labs(
+title = "Global Insecticide Resistance Trends",
+x = "Year",
+y = "Percent Mortality (%)",
+color = "Insecticide Class"
+)
+
+p1
+ggsave(file.path(plots_dir, "global_trends.png"), p1, width = 8, height = 5)
+```
+
+## Analysis with General Linear Mixed Model (GLMM)
+```{r}
+model <- glmmTMB(
+percent_mortality/100 ~ year + insecticide_class + (1 | site_id),
+data = raw,
+family = beta_family()
+)
+
+summary(model)
+
+capture.output(summary(model),
+file = file.path(tables_dir, "glmm_summary.txt"))
+```
+
+## Save Cleaned Dataset
+```{r}
+write_csv(raw, here("data", "ir_mapper_cleaned_final.csv"))
+```
